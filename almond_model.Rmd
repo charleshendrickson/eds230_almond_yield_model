@@ -1,0 +1,57 @@
+---
+title: "almond_model"
+author: "Charles Hendrickson"
+date: "4/7/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+Packages
+```{r}
+# Load packages
+library(tidyverse)
+```
+
+
+
+Code your function in R; save it as a separate file called “the name of your function”.R; Make sure you include documentation Store your R function in a git repository - you will need it again for future assignment
+```{r}
+# Model parameters 
+almond_model <- function(monthly_temp, monthly_precip, temp_param_1 = -0.015, temp_param_2 = -0.0046, precip_param_1 = -0.07, precip_param_2 = 0.0043, constant = 0.28) {
+  
+# Model function
+yield_anomaly <- return(temp_param_1*monthly_temp + temp_param_2*monthly_temp^2 + precip_param_1*monthly_precip + precip_param_2*monthly_precip^2 + constant)
+
+}
+  
+# Model output
+almond_model <- (monthly_temp = , monthly_precip = )
+  
+```
+
+
+Read in data 
+```{r}
+clim_data <- read.delim("data/clim.txt", sep = " ") %>% 
+  data.frame()
+```
+
+Select miniumum temperature and precipitation data
+```{r}
+filter for minimum temp and month 
+```
+
+
+
+
+
+
+
+
+
+
+
