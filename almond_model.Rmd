@@ -29,7 +29,7 @@ yield_anomaly <- return(temp_param_1*monthly_temp + temp_param_2*monthly_temp^2 
 }
   
 # Model output
-almond_model <- (monthly_temp = , monthly_precip = )
+almond_model <- (monthly_temp = 11.614732, monthly_precip = 9.2310690)
   
 ```
 
@@ -40,9 +40,23 @@ clim_data <- read.delim("data/clim.txt", sep = " ") %>%
   data.frame()
 ```
 
-Select miniumum temperature and precipitation data
+Select minimum temperature and precipitation data
 ```{r}
-filter for minimum temp and month 
+# February minimum temp per year
+clim_data_feb_min_temp <- clim_data %>% 
+  filter(month == 2) %>% 
+  select(year, tmin_c) %>% 
+  group_by(year) %>%
+  summarise(mean_feb_min = mean(tmin_c))
+
+# Average January precipitation per year 
+clim_data_mean_jan_precip <- clim_data %>% 
+  filter(month == 2) %>% 
+  select(year, precip) %>%
+  group_by(year) %>% 
+  summarise(mean_jan_precip = mean(precip))
+
+  
 ```
 
 
