@@ -18,14 +18,14 @@ library(here)
 
 
 ```{r}
-data <- read_delim(file = here("data", "clim.txt"), delim = " ")
+data <- read.table(file = here("data", "clim.txt"), sep = "")
 
 data_annual <- data %>%
-  group_by(year, wy) %>% 
-  summarize(total_precip = sum(precip), min_temp = min(tmin_c))
+  group_by(month, year) %>% 
+  summarize(total_precip = sum(precip), min_temp = mean(tmin_c))
 
-data_feb <- data_annual %>% filter(year == 2)
-data_jan <- data_annual %>% filter(year == 1)
+data_feb <- data_annual %>% filter(month == 2)
+data_jan <- data_annual %>% filter(month == 1)
 ```
 
 Code your function in R; save it as a separate file called “the name of your function”.R; Make sure you include documentation Store your R function in a git repository - you will need it again for future assignment
@@ -42,7 +42,7 @@ return(yield_anomaly)
 ```
 
 ```{r}
-yield_anom <- data.frame("year" = unique(data_annual$wy)) %>% mutate(anomaly = NA)
+yield_anom <- data.frame("year" = unique(data_annual$year)) %>% mutate(anomaly = NA)
 
 for (i in 1:length(yield_anom$year)) {
   anom <- almond_model(monthly_temp = data_feb$min_temp[i], monthly_precip = data_jan$total_precip[i])
@@ -51,6 +51,12 @@ for (i in 1:length(yield_anom$year)) {
 
 yield_anom <- yield_anom %>% drop_na()
 ```
+
+```{r}
+check <- yield_anom %>% filter(year >= 2000 & year <= 2002)
+check
+```
+
 
 ```{r}
 ggplot(data = yield_anom, aes(x = year, y = anomaly)) +
